@@ -15,11 +15,11 @@ Enable-PSRemoting -SkipNetworkProfileCheck -Force
 
 #Creates certificate
 $Cert = New-SelfSignedCertificate -CertstoreLocation Cert:\LocalMachine\My -DnsName "10.0.0.4"
-$CertPath = "Cert:\LocalMachine\My\$Cert.Thumbprint"
+#$CertPath = "Cert:\LocalMachine\My\$Cert.Thumbprint"
 
 $Pswrd = ConvertTo-SecureString -String "1Treetop2!" -Force -AsPlainText
 
-Export-PfxCertificate -Cert $CertPath -FilePath c:\selfCert.pfx -Password $Pswrd
+Export-PfxCertificate -Cert $Cert -FilePath c:\selfCert.pfx -Password $Pswrd
 
 
 
