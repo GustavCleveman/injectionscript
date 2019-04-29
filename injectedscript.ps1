@@ -12,9 +12,10 @@ New-NetFirewallRule -DisplayName 'WinRm (HTTPS-In)' -Name 'WinRm (HTTPS-In)' -Pr
 
 #Enables powershell to be connected to remotely 
 Enable-PSRemoting -SkipNetworkProfileCheck -Force
+Start-Service WinRM
 
 #Creates certificate
-$Cert = New-SelfSignedCertificate -Cer--tstoreLocation Cert:\LocalMachine\My -DnsName "10.0.0.4"
+$Cert = New-SelfSignedCertificate -CertstoreLocation Cert:\LocalMachine\My -DnsName "10.0.0.4"
 #$CertPath = "Cert:\LocalMachine\My\$Cert.Thumbprint"
 
 $Pswrd = ConvertTo-SecureString -String "1Treetop2!" -Force -AsPlainText
