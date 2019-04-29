@@ -15,13 +15,20 @@ Enable-PSRemoting -SkipNetworkProfileCheck -Force
 
 #Creates certificate
 $Cert = New-SelfSignedCertificate -CertstoreLocation Cert:\LocalMachine\My -DnsName "10.0.0.4"
+$CertPath = "Cert:\LocalMachine\My\$Cert.Thumbprint"
+
+$Pswrd = ConvertTo-SecureString -String "1Treetop2!" -Force -AsPlainText
+
+Export-PfxCertificate -Cert $CertPath -FilePath c:\selfCert.pfx -Password $Pswrd
+
+
 
 #Set winRm to listen to Https with the cert thumbprint
-New-Item -Path WSMan:\LocalHost\Listener -Transport HTTPS -Address * -CertificateThumbPrint $Cert.Thumbprint –Force
+New-Item -Path WSMan:\LocalHost\Listener -Transport HTTPS -Address * -CertificateThumbPrint $Cert.Thumbprint -Force
 
 # Remove HTTP listener (optional)
 Winrm enumerate winrm/config/listener
 Get-ChildItem WSMan:\Localhost\listener | Where -Property Keys -eq 'Transport=HTTP' | Remove-Item -Recurse
 
-#pretty self explanatory, this comment is longer than the plaintext code for heaven's sake
+#pretty self explanatory
 Start-Service WinRM
