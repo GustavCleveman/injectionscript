@@ -27,8 +27,8 @@ Export-PfxCertificate -Cert $CertPath -FilePath c:\selfCert.pfx -Password $Pswrd
 New-Item -Path WSMan:\LocalHost\Listener -Transport HTTPS -Address * -CertificateThumbPrint $Cert.Thumbprint -Force
 
 # Remove HTTP listener (optional)
-Winrm enumerate winrm/config/listener
-Get-ChildItem WSMan:\Localhost\listener | Where -Property Keys -eq 'Transport=HTTP' | Remove-Item -Recurse
+#Winrm enumerate winrm/config/listener
+#Get-ChildItem WSMan:\Localhost\listener | Where -Property Keys -eq 'Transport=HTTP' | Remove-Item -Recurse
 
 #pretty self explanatory
 Start-Service WinRM
