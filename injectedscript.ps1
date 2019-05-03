@@ -8,6 +8,9 @@ netsh advfirewall firewall add rule name= WinRMHTTPS dir=out action=allow protoc
 #opens https port again because whatever the hell these days
 New-NetFirewallRule -DisplayName 'WinRm (HTTPS-In)' -Name 'WinRm (HTTPS-In)' -Profile any -LocalPort 5986 -Protocol TCP
 
+winrm set winrm/config/client '@{AllowUnencrypted="true"}'
+
+
 #Allows for Certificate authentication
 #Set-Item -Path WSMan:\localhost\Service\Auth\Certificate -Value $true <-- do remotely after copying of cert
 
@@ -31,4 +34,3 @@ Enable-WSManCredSSP -Role server -Force
 #Get-ChildItem WSMan:\Localhost\listener | Where -Property Keys -eq 'Transport=HTTP' | Remove-Item -Recurse
 #pretty self explanatory
 Start-Service WinRM
-#sojtsotjsojtsj
