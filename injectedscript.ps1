@@ -18,7 +18,7 @@ winrm set winrm/config/client '@{AllowUnencrypted="true"}'
 Enable-PSRemoting -SkipNetworkProfileCheck -Force
 
 #Creates certificate
-$Cert = New-SelfSignedCertificate -CertstoreLocation Cert:\LocalMachine\My -DnsName "10.0.0.4" -Type DocumentEncryptionCert, SSLServerAuthentication
+$Cert = New-SelfSignedCertificate -CertstoreLocation Cert:\LocalMachine\My -DnsName "10.0.0.4" -Type SSLServerAuthentication, DocumentEncryptionCert
 #$CertPath = "Cert:\LocalMachine\My\$Cert.Thumbprint"
 
 $Pswrd = ConvertTo-SecureString -String "1Treetop2!" -Force -AsPlainText
@@ -34,3 +34,4 @@ Enable-WSManCredSSP -Role server -Force
 #Get-ChildItem WSMan:\Localhost\listener | Where -Property Keys -eq 'Transport=HTTP' | Remove-Item -Recurse
 #pretty self explanatory
 Start-Service WinRM
+#sdsdf
