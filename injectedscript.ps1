@@ -15,7 +15,7 @@ New-NetFirewallRule -DisplayName 'WinRm (HTTPS-In)' -Name 'WinRm (HTTPS-In)' -Pr
 Enable-PSRemoting -SkipNetworkProfileCheck -Force
 
 #Creates certificate
-$Cert = New-SelfSignedCertificate -CertstoreLocation Cert:\LocalMachine\My -DnsName "10.0.0.4" -Type DocumentEncryptionCert, SSLServerAuthentication -Force
+$Cert = New-SelfSignedCertificate -CertstoreLocation Cert:\LocalMachine\My -DnsName "10.0.0.4" -Type DocumentEncryptionCert, SSLServerAuthentication
 #$CertPath = "Cert:\LocalMachine\My\$Cert.Thumbprint"
 
 $Pswrd = ConvertTo-SecureString -String "1Treetop2!" -Force -AsPlainText
@@ -24,11 +24,11 @@ Export-PfxCertificate -Cert $Cert -FilePath c:\selfCert.pfx -Password $Pswrd
 
 #Set winRm to listen to Https with the cert thumbprint
 New-Item -Path WSMan:\LocalHost\Listener -Transport HTTPS -Address * -CertificateThumbPrint $Cert.Thumbprint -Force
-Enable-WSManCredSSP -Role server
+Enable-WSManCredSSP -Role server -Force
 
 #Remove HTTP listener (optional)
 #Winrm enumerate winrm/config/listener
 #Get-ChildItem WSMan:\Localhost\listener | Where -Property Keys -eq 'Transport=HTTP' | Remove-Item -Recurse
-
 #pretty self explanatory
 Start-Service WinRM
+#sojtsotjsojtsj
