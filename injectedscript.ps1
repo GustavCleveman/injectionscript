@@ -21,8 +21,8 @@ Enable-PSRemoting -SkipNetworkProfileCheck -Force
 $Cert = New-SelfSignedCertificate -CertstoreLocation Cert:\LocalMachine\My -DnsName "10.0.0.4" -Type SSLServerAuthentication, DocumentEncryptionCert
 #$CertPath = "Cert:\LocalMachine\My\$Cert.Thumbprint"
 
-$Pswrd = ConvertTo-SecureString -String "dminpass!" -Force -AsPlainText
-$password = ConvertTo-SecureString "dminpass" -AsPlainText -Force
+$Pswrd = ConvertTo-SecureString -String "Pa$$word123!!" -Force -AsPlainText
+$password = ConvertTo-SecureString "Pa$$word123!!" -AsPlainText -Force
 $cred= New-Object System.Management.Automation.PSCredential ("dminname", $password )
 
 Export-PfxCertificate -Cert $Cert -FilePath c:\selfCert.pfx -Password $Pswrd
@@ -37,4 +37,4 @@ New-Item -Path WSMan:\localhost\ClientCertificate -Credential $cred -Subject dmi
 #Get-ChildItem WSMan:\Localhost\listener | Where -Property Keys -eq 'Transport=HTTP' | Remove-Item -Recurse
 #pretty self explanatory
 Start-Service WinRM
-#sdsd
+#sdsd 
