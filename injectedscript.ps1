@@ -31,7 +31,12 @@ Export-PfxCertificate -Cert $Cert -FilePath c:\selfCert.pfx -Password $Pswrd
 New-Item -Path WSMan:\LocalHost\Listener -Transport HTTPS -Address * -CertificateThumbPrint $Cert.Thumbprint -Force
 
 Enable-WSManCredSSP -Role server -Force
-New-Item -Path WSMan:\localhost\ClientCertificate -Credential $cred -Subject dmin -URI * -Issuer $Cert.thumbprint -Force
+
+
+#New-Item -Path WSMan:\localhost\ClientCertificate -Credential $cred -Subject dmin -URI * -Issuer $Cert.thumbprint -Force <---!this one might help but locks u out
+#TODO.  MOVE Above line to client script?
+
+
 #Remove HTTP listener (optional)
 #Winrm enumerate winrm/config/listener
 #Get-ChildItem WSMan:\Localhost\listener | Where -Property Keys -eq 'Transport=HTTP' | Remove-Item -Recurse
