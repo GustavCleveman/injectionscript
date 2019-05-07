@@ -8,7 +8,9 @@ netsh advfirewall firewall add rule name= WinRMHTTPS dir=out action=allow protoc
 New-NetFirewallRule -DisplayName 'WinRm (HTTPS-In)' -Name 'WinRm (HTTPS-In)' -Profile any -LocalPort 5986 -Protocol TCP
 
 winrm set winrm/config/client '@{AllowUnencrypted="true"}'
+Enable-WSManCredSSP -Role client -DelegateComputer 10.0.0.4 -Force
 
 Enable-WSManCredSSP -Role server -Force
 Enable-PSRemoting -SkipNetworkProfileCheck -Force
+
 

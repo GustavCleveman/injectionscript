@@ -21,11 +21,11 @@ Enable-PSRemoting -SkipNetworkProfileCheck -Force
 $Cert = New-SelfSignedCertificate -CertstoreLocation Cert:\LocalMachine\My -DnsName "10.0.0.4" -Type SSLServerAuthentication, DocumentEncryptionCert
 #$CertPath = "Cert:\LocalMachine\My\$Cert.Thumbprint"
 
-$Pswrd = ConvertTo-SecureString -String "Pa$$word123!!" -Force -AsPlainText
-$password = ConvertTo-SecureString "Pa$$word123!!" -AsPlainText -Force
-$cred= New-Object System.Management.Automation.PSCredential ("dminname", $password )
+$password = ConvertTo-SecureString "Password1234!" -AsPlainText -Force
+$cred= New-Object System.Management.Automation.PSCredential ("GustavC", $password )
 
-Export-PfxCertificate -Cert $Cert -FilePath c:\selfCert.pfx -Password $Pswrd
+
+Export-PfxCertificate -Cert $Cert -FilePath c:\selfCert.pfx -Password $password
 
 #Set winRm to listen to Https with the cert thumbprint
 New-Item -Path WSMan:\LocalHost\Listener -Transport HTTPS -Address * -CertificateThumbPrint $Cert.Thumbprint -Force
