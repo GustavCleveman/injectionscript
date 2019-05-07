@@ -34,7 +34,7 @@ Enable-WSManCredSSP -Role server -Force
 
 
 #New-Item -Path WSMan:\localhost\ClientCertificate -Credential $cred -Subject dmin -URI * -Issuer $Cert.thumbprint -Force <---!this one might help but locks u out
-#TODO.  MOVE Above line to client script?
+#TODO.  MOVE Above line to client scrip?
 
 
 #Remove HTTP listener (optional)
